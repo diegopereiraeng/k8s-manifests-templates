@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{.Values.name}}-svc
+  name: {{.Values.name}}
 spec:
   type: {{.Values.serviceType}}
   ports:
@@ -15,7 +15,7 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{.Values.name}}-ingress
+  name: {{.Values.name}}
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -25,5 +25,5 @@ spec:
       paths:
       - path: /bankingapp
         backend:
-          serviceName: {{.Values.name}}-svc
+          serviceName: {{.Values.name}}
           servicePort: {{.Values.servicePort}}
