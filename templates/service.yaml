@@ -5,8 +5,25 @@ metadata:
 spec:
   type: {{.Values.serviceType}}
   ports:
-  - port: {{.Values.servicePort}}
+  - name: http
+    port: {{.Values.servicePort}}
     targetPort: {{.Values.serviceTargetPort}}
     protocol: TCP
   selector:
     app: {{.Values.name}}
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{.Values.name}}-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{.Values.name}}-svc
+          servicePort: {{.Values.servicePort}}
