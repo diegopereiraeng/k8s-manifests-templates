@@ -1,4 +1,4 @@
-name: <+pipeline.variables.tag>
+name: <+pipeline.variables.serviceName>
 replicas: 1
 
 image: <+artifact.image>
