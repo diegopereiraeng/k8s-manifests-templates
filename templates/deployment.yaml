@@ -34,7 +34,7 @@ type: kubernetes.io/dockercfg
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Values.name}}-deployment
+  name: {{.Values.name}}
 spec:
   replicas: {{int .Values.replicas}}
   selector:
@@ -52,6 +52,21 @@ spec:
       containers:
       - name: {{.Values.name}}
         image: {{.Values.image}}
+        resources:
+          requests:
+            cpu: 200m
+            memory: 50Mi
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        resources:
+          limits:
+            memory: 50Mi
+            cpu: 10m
+          requests:
+            memory: 50Mi
+            cpu: 10m
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
         {{- if .Values.env.config}}
