@@ -23,7 +23,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: /bankingapp
         backend:
           serviceName: {{.Values.name}}-svc
           servicePort: {{.Values.servicePort}}
