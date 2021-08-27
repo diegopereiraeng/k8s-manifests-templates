@@ -54,7 +54,7 @@ spec:
         image: {{.Values.image}}
         resources:
           requests:
-            cpu: 200m
+            cpu: 40m
             memory: 50Mi
         ports:
         - name: http
