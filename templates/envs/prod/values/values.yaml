@@ -6,7 +6,7 @@ virtualPath: <+pipeline.variables.serviceName>
 image: <+artifact.image>
 dockercfg: <+artifact.imagePullSecret>
 
-env: <+environment.name>
+env: <+stages.stageIdentifier.infrastructure.environment.name>
 
 createNamespace: true
 namespace: <+infra.namespace>
