@@ -24,7 +24,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /{{.Values.virtualPath}}/(.*)
+      - path: /{{.Values.virtualPath}}/{{.Values.env}}/(.*)
         backend:
           serviceName: {{.Values.name}}
           servicePort: {{.Values.servicePort}}
