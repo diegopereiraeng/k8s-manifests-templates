@@ -1,7 +1,7 @@
-name: <+pipeline.variables.serviceName>
+name: <+pipeline.variables.serviceName>-<+pipeline.variables.virtualPath>
 replicas: 1
 
-virtualPath: <+pipeline.variables.serviceName>
+virtualPath: <+pipeline.variables.virtualPath>
 
 image: <+artifact.image>
 dockercfg: <+artifact.imagePullSecret>
