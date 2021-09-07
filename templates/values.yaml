@@ -4,6 +4,7 @@ replicas: 1
 virtualPath: <+pipeline.variables.virtualPath>
 
 image: <+artifact.image>
+imagePolicy: Always
 dockercfg: <+artifact.imagePullSecret>
 
 createNamespace: true
