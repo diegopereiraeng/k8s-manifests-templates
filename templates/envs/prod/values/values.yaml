@@ -29,8 +29,9 @@ serviceTargetPort: 80
 env:
   config:
     FFKEY: <+pipeline.variables.ffkey_prod>
-    STABLE_ENDPOINT: ${serviceVariable.stableEndpoint}
-    CANARY_ENDPOINT: ${serviceVariable.canaryEndpoint}
+    FF_API_KEY: <+pipeline.variables.ffkey_prod>
+    STABLE_ENDPOINT: <+pipeline.stages.Deploy.spec.serviceConfig.serviceDefinition.spec.variables.stableEndpoint>
+    CANARY_ENDPOINT: <+pipeline.stages.Deploy.spec.serviceConfig.serviceDefinition.spec.variables.canaryEndpoint>
     LOG_CONFIG_LABELS: |-
       {
         logsPerMinute: "Logs per minute",
