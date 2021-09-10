@@ -30,19 +30,3 @@ env:
   config:
     FFKEY: <+pipeline.variables.ffkey_prod>
     FF_API_KEY: <+pipeline.variables.ffkey_prod>
-    STABLE_ENDPOINT: <+pipeline.stages.Deploy.spec.serviceConfig.serviceDefinition.spec.variables.stableEndpoint>
-    CANARY_ENDPOINT: <+pipeline.stages.Deploy.spec.serviceConfig.serviceDefinition.spec.variables.canaryEndpoint>
-    LOG_CONFIG_LABELS: |-
-      {
-        logsPerMinute: "Logs per minute",
-        errorRate: "Error rate (%)",
-        errorMessage: "Error message"
-      }
-    METRIC_CONFIG_LABELS: |-
-      {
-        callsPerMinute: "Calls per minute",
-        errorRate: "Error rate (%)",
-        minErrorValue: "Error value min",
-        maxErrorValue: "Error value max",
-        shouldDoDelayedCalls: "Delayed calls enabled"
-      }
