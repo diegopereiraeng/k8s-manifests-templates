@@ -59,11 +59,11 @@ spec:
           protocol: TCP
         resources:
           limits:
-            memory: 40Mi
-            cpu: 10m
+            memory: {{.Values.memLimit}}
+            cpu: {{.Values.cpuLimit}}
           requests:
-            memory: 20Mi
-            cpu: 5m
+            memory: {{.Values.memRequest}}
+            cpu: {{.Values.cpuRequest}}
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
         {{- if .Values.env.config}}
