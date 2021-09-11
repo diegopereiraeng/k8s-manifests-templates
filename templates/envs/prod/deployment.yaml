@@ -53,21 +53,17 @@ spec:
       - name: {{.Values.name}}
         image: {{.Values.image}}
         imagePullPolicy: {{.Values.imagePolicy}}
-        resources:
-          requests:
-            cpu: 40m
-            memory: 50Mi
         ports:
         - name: http
           containerPort: 80
           protocol: TCP
         resources:
           limits:
-            memory: 50Mi
+            memory: 40Mi
             cpu: 10m
           requests:
-            memory: 50Mi
-            cpu: 10m
+            memory: 20Mi
+            cpu: 5m
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
         {{- if .Values.env.config}}
