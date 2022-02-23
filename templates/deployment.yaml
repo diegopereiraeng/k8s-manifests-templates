@@ -68,6 +68,24 @@ spec:
           requests:
             memory: 50Mi
             cpu: 10m
+        livenessProbe:
+          httpGet:
+            path: /index.html
+            port: http
+            httpHeaders:
+            - name: Custom-Header
+              value: Awesome
+          initialDelaySeconds: 30
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /index.html
+            port: http
+            httpHeaders:
+            - name: Custom-Header
+              value: Awesome
+          initialDelaySeconds: 30
+          periodSeconds: 3
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
         {{- if .Values.env.config}}
