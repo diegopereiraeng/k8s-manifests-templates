@@ -62,8 +62,8 @@ spec:
             memory: 300Mi
             cpu: 50m
           requests:
-            memory: 50Mi
-            cpu: 10m
+            memory: 100Mi
+            cpu: 20m
         livenessProbe:
           httpGet:
             path: /index.html
