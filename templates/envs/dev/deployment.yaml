@@ -18,6 +18,16 @@ stringData:
 ---
 {{- end}}
 
+{{- if .Values.testSecrets}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{.Values.name}}
+stringData:
+{{.Values.testSecrets | toYaml | indent 2}}
+---
+{{- end}}
+
 {{- if .Values.dockercfg}}
 apiVersion: v1
 kind: Secret
