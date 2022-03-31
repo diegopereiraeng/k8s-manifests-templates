@@ -22,7 +22,7 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{.Values.name}}
+  name: {{.Values.name}}-dynamic
 stringData:
 {{.Values.testSecrets | toYaml | indent 2}}
 ---
