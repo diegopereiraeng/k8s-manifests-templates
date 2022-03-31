@@ -24,7 +24,7 @@ kind: Secret
 metadata:
   name: {{.Values.name}}-dynamic
 stringData:
-{{.Values.dynamicSecrets | toYaml | indent 2}}
+{{.Values.dynamicSecrets | indent 2}}
 ---
 {{- end}}
 
