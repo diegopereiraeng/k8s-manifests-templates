@@ -33,7 +33,7 @@ spec:
 #apiVersion: ccm.harness.io/v1
 #kind: AutoStoppingRule
 #metadata:
-#    name: {{.Values.name}}-ccm-auto-k8s
+#    name: {{substr 0 31 .Values.name}}
 #    namespace: {{.Values.namespace}}
 #    annotations:
 #        harness.io/cloud-connector-id: Harness_GCP_Billing
