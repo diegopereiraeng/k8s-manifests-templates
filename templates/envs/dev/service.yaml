@@ -30,20 +30,20 @@ spec:
           serviceName: {{.Values.name}}
           servicePort: {{.Values.servicePort}}
 ---
-apiVersion: ccm.harness.io/v1
-kind: AutoStoppingRule
-metadata:
-    name: {{.Values.name}}-ccm-auto-k8s
-    namespace: {{.Values.namespace}}
-    annotations:
-        harness.io/cloud-connector-id: Harness_GCP_Billing
-spec:
-    service:
-        name: {{.Values.name}}
-        port: {{int .Values.servicePort}}
-    ingress:
-        name: {{.Values.name}}
-        controllerName: nginx
-    idleTimeMins: 15
-    hideProgressPage: false
+#apiVersion: ccm.harness.io/v1
+#kind: AutoStoppingRule
+#metadata:
+#    name: {{.Values.name}}-ccm-auto-k8s
+#    namespace: {{.Values.namespace}}
+#    annotations:
+#        harness.io/cloud-connector-id: Harness_GCP_Billing
+#spec:
+#    service:
+#        name: {{.Values.name}}
+#        port: {{int .Values.servicePort}}
+#    ingress:
+#        name: {{.Values.name}}
+#        controllerName: nginx
+#    idleTimeMins: 15
+#    hideProgressPage: false
 #    host: harness-demo.site
