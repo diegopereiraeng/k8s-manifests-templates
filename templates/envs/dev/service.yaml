@@ -11,45 +11,37 @@ spec:
     protocol: TCP
   selector:
     app: {{.Values.name}}
-#---
-#apiVersion: networking.k8s.io/v1beta1
-#kind: Ingress
-#metadata:
-#  name: {{.Values.name}}
-#  annotations:
-#    kubernetes.io/ingress.class: nginx
-#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-#    nginx.ingress.kubernetes.io/rewrite-target: /$1
-#spec:
-#  rules:
-#  - http:
-#      paths:
-#      - path: /{{.Values.virtualPath}}/(.*)
-#        backend:
-#          serviceName: {{.Values.name}}
-#          servicePort: {{.Values.servicePort}}
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{.Values.name}}
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /{{.Values.virtualPath}}/(.*)
+        backend:
+          serviceName: {{.Values.name}}
+          servicePort: {{.Values.servicePort}}
 ---
 apiVersion: ccm.harness.io/v1
 kind: AutoStoppingRule
 metadata:
     name: {{.Values.name}}-ccm-auto-k8s
+    namespace: {{.Values.namespace}}
     annotations:
-        harness.io/cloud-connector-id: GCPtest
-        nginx.ingress.kubernetes.io/configuration-snippet: 'more_set_input_headers "AutoStoppingRule: {{.Values.namespace}}-{{.Values.name}}-ccm-auto-k8s";'
-        kubernetes.io/ingress.class: nginx
-        nginx.ingress.kubernetes.io/ssl-redirect: "false"
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        harness.io/cloud-connector-id: Harness_GCP_Billing
 spec:
-    idleTimeMins: 5
-    hideProgressPage: false
+    service:
+        name: {{.Values.name}}
+        port: {{int .Values.servicePort}}
     ingress:
-        rules:
-            - http:
-                  paths:
-                      - path: /{{.Values.virtualPath}}/(.*)
-                        pathType: Prefix
-                        backend:
-                            service:
-                                name: {{.Values.name}}
-                                port:
-                                    number: {{int .Values.servicePort}}
+        name: {{.Values.name}}
+        controllerName: nginx
+    idleTimeMins: 15
+    hideProgressPage: false
