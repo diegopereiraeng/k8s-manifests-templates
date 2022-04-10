@@ -71,7 +71,7 @@ spec:
             httpHeaders:
             - name: Custom-Header
               value: Awesome
-          initialDelaySeconds: 30
+          initialDelaySeconds: 10
           periodSeconds: 3
         readinessProbe:
           httpGet:
@@ -80,7 +80,7 @@ spec:
             httpHeaders:
             - name: Custom-Header
               value: Awesome
-          initialDelaySeconds: 30
+          initialDelaySeconds: 10
           periodSeconds: 3
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
