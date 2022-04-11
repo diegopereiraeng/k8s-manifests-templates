@@ -50,7 +50,6 @@ spec:
             port:
               number: {{.Values.servicePort}}
 ---
-{{- if eq .Values.deployType "Rolling Deployment" }}
 apiVersion: ccm.harness.io/v1
 kind: AutoStoppingRule
 metadata:
@@ -68,4 +67,3 @@ spec:
     idleTimeMins: 15
     hideProgressPage: false
     host: harness-demo.site
-{{- end}}
