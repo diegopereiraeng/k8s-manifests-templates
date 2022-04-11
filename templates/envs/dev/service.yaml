@@ -50,7 +50,7 @@ spec:
             port:
               number: {{.Values.servicePort}}
 ---
-{{- if eq <+execution.steps.primaryDepoyment.steps.rollingDeployment.name> "Rolling Deployment" }}
+{{- if eq .Values.deployType "Rolling Deployment" }}
 apiVersion: ccm.harness.io/v1
 kind: AutoStoppingRule
 metadata:
