@@ -50,6 +50,7 @@ spec:
             port:
               number: {{.Values.servicePort}}
 ---
+{{- if eq <+execution.steps.primaryDepoyment.steps.rollingDeployment.name> "Rolling Deployment" }}
 apiVersion: ccm.harness.io/v1
 kind: AutoStoppingRule
 metadata:
@@ -62,8 +63,9 @@ spec:
         name: {{.Values.name}}
         port: {{int .Values.servicePort}}
     ingress:
-        name: {{.Values.name}}
+        name: {{.Values.name}}-ingress
         controllerName: nginx
     idleTimeMins: 15
     hideProgressPage: false
     host: harness-demo.site
+{{- end}}
