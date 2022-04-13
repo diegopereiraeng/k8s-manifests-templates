@@ -49,5 +49,8 @@ spec:
             name: {{.Values.name}}
             port:
               number: {{.Values.servicePort}}
+    {{- if .Values.defineHost}}
+    host: "ff.harness-demo.site"
+    {{- end}}
 ---
 
