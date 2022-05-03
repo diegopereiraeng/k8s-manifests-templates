@@ -65,7 +65,11 @@ spec:
         imagePullPolicy: {{.Values.imagePolicy}}
         ports:
         - name: http
+          {{- if .Values.containerPort}}
+          containerPort: {{.Values.containerPort}}
+          {{- else }}
           containerPort: 80
+          {{- end}}
           protocol: TCP
         resources:
           limits:
