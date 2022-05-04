@@ -80,8 +80,17 @@ spec:
             cpu: 20m
         livenessProbe:
           httpGet:
+            {{- if .Values.healthCheck}}
+            path: {{.Values.healthCheck}}
+            {{- else }}
             path: /index.html
+            {{- end}}
+            {{- if .Values.containerPort}}
+            port: {{.Values.containerPort}}
+            {{- else }}
             port: 80
+            {{- end}}
+            
             httpHeaders:
             - name: Custom-Header
               value: Awesome
