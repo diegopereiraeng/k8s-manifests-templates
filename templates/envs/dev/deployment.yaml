@@ -73,7 +73,7 @@ spec:
           protocol: TCP
         resources:
           {{- if .Values.resources}}
-          {{.Values.resources | toYaml}}
+{{.Values.resources | toYaml | indent 10}}
           {{- else }}
           limits:
             memory: 150Mi
