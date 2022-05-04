@@ -82,7 +82,6 @@ spec:
             memory: 50Mi
             cpu: 20m
           {{- end}}
-          
         livenessProbe:
           httpGet:
             {{- if .Values.livenessProbeHealthCheck}}
