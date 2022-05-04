@@ -49,7 +49,7 @@ spec:
   - http:
       paths:
       {{- if .Values.rootPath}}
-      - path: /{{.Values.virtualPath}}/
+      - path: /{{.Values.virtualPath}}(/|$)(.*)
       {{- else }}
       - path: /{{.Values.virtualPath}}/(.*)
       {{- end}}
