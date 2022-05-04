@@ -72,16 +72,21 @@ spec:
           {{- end}}
           protocol: TCP
         resources:
+          {{- if .Values.resources}}
+          {{.Values.resources | toYaml}}
+          {{- else }}
           limits:
             memory: 150Mi
             cpu: 30m
           requests:
             memory: 50Mi
             cpu: 20m
+          {{- end}}
+          
         livenessProbe:
           httpGet:
-            {{- if .Values.healthCheck}}
-            path: {{.Values.healthCheck}}
+            {{- if .Values.livenessProbeHealthCheck}}
+            path: {{.Values.livenessProbeHealthCheck}}
             {{- else }}
             path: /index.html
             {{- end}}
@@ -94,7 +99,12 @@ spec:
             httpHeaders:
             - name: Custom-Header
               value: Awesome
+          {{- if .Values.livenessProbeinitialDelaySeconds}}
+          initialDelaySeconds: {{.Values.livenessProbeinitialDelaySeconds}}
+          {{- else }}
           initialDelaySeconds: 10
+          {{- end}}
+          
           periodSeconds: 3
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
