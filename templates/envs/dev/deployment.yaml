@@ -95,12 +95,11 @@ spec:
             {{- else }}
             port: 80
             {{- end}}
-            
             httpHeaders:
             - name: Custom-Header
               value: Awesome
           {{- if .Values.livenessProbeinitialDelaySeconds}}
-          initialDelaySeconds: {{.Values.livenessProbeinitialDelaySeconds}}
+          initialDelaySeconds: {{int .Values.livenessProbeinitialDelaySeconds }}
           {{- else }}
           initialDelaySeconds: 10
           {{- end}}
