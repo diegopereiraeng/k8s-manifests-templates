@@ -36,6 +36,7 @@ metadata:
   name: {{.Values.name}}-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
     {{- if .Values.rewriteDisabled}}
     nginx.ingress.kubernetes.io/rewrite-target: /
     {{- else }}
