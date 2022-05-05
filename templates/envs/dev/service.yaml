@@ -30,6 +30,8 @@ spec:
 #          serviceName: {{.Values.name}}
 #          servicePort: {{.Values.servicePort}}
 ---
+{{- if eq .Values.serviceType "LoadBalancer" }}
+{{- else }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -65,4 +67,4 @@ spec:
     host: {{.Values.defineHost}}
     {{- end}}
 ---
-
+{{- end}}
