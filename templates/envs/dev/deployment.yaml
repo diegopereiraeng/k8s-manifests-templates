@@ -18,6 +18,16 @@ stringData:
 ---
 {{- end}}
 
+{{- if .Values.dynamicSecrets}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{.Values.name}}-dynamic
+stringData:
+{{.Values.dynamicSecrets | indent 2}}
+---
+{{- end}}
+
 {{- if .Values.dockercfg}}
 apiVersion: v1
 kind: Secret
@@ -53,21 +63,47 @@ spec:
       - name: {{.Values.name}}
         image: {{.Values.image}}
         imagePullPolicy: {{.Values.imagePolicy}}
-        resources:
-          requests:
-            cpu: 40m
-            memory: 50Mi
         ports:
         - name: http
+          {{- if .Values.containerPort}}
+          containerPort: {{.Values.containerPort}}
+          {{- else }}
           containerPort: 80
+          {{- end}}
           protocol: TCP
         resources:
+          {{- if .Values.resources}}
+{{.Values.resources | toYaml | indent 10}}
+          {{- else }}
           limits:
-            memory: 50Mi
-            cpu: 10m
+            memory: 150Mi
+            cpu: 30m
           requests:
             memory: 50Mi
-            cpu: 10m
+            cpu: 20m
+          {{- end}}
+        livenessProbe:
+          httpGet:
+            {{- if .Values.livenessProbeHealthCheck}}
+            path: {{.Values.livenessProbeHealthCheck}}
+            {{- else }}
+            path: /index.html
+            {{- end}}
+            {{- if .Values.containerPort}}
+            port: {{.Values.containerPort}}
+            {{- else }}
+            port: 80
+            {{- end}}
+            httpHeaders:
+            - name: Custom-Header
+              value: Awesome
+          {{- if .Values.livenessProbeinitialDelaySeconds}}
+          initialDelaySeconds: {{int .Values.livenessProbeinitialDelaySeconds }}
+          {{- else }}
+          initialDelaySeconds: 10
+          {{- end}}
+          
+          periodSeconds: 3
         {{- if or .Values.env.config .Values.env.secrets}}
         envFrom:
         {{- if .Values.env.config}}
