@@ -14,6 +14,6 @@ spec:
     ingress:
         name: {{.Values.name}}-ingress
         controllerName: nginx
-    idleTimeMins: 5
+    idleTimeMins: 20
     hideProgressPage: false
 #    host: harness-demo.site
