@@ -1,4 +1,5 @@
 {{- if .Values.env.config}}
+harness.io/skip-versioning: "true"
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -9,6 +10,7 @@ data:
 {{- end}}
 
 {{- if .Values.env.secrets}}
+harness.io/skip-versioning: "true"
 apiVersion: v1
 kind: Secret
 metadata:
@@ -19,6 +21,7 @@ stringData:
 {{- end}}
 
 {{- if .Values.dynamicSecrets}}
+harness.io/skip-versioning: "true"
 apiVersion: v1
 kind: Secret
 metadata:
@@ -29,6 +32,7 @@ stringData:
 {{- end}}
 
 {{- if .Values.dockercfg}}
+harness.io/skip-versioning: "true"
 apiVersion: v1
 kind: Secret
 metadata:
