@@ -52,6 +52,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{.Values.name}}
+  annotations:
+    backstage.io/kubernetes-label-selector: {{.Values.name}}
 spec:
   replicas: {{int .Values.replicas}}
   selector:
