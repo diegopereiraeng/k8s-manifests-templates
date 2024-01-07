@@ -4,44 +4,39 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{.Values.name}}
-  annotations:
-    harness.io/skip-versioning: true
 data:
 {{.Values.env.config | toYaml | indent 2}}
 ---
 {{- end}}
 
 {{- if .Values.env.secrets}}
+# harness.io/skip-versioning: "true"
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{.Values.name}}
-  annotations:
-    harness.io/skip-versioning: true
 stringData:
 {{.Values.env.secrets | toYaml | indent 2}}
 ---
 {{- end}}
 
 {{- if .Values.dynamicSecrets}}
+# harness.io/skip-versioning: "true"
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{.Values.name}}-dynamic
-  annotations:
-    harness.io/skip-versioning: true
 stringData:
 {{.Values.dynamicSecrets | indent 2}}
 ---
 {{- end}}
 
 {{- if .Values.dockercfg}}
+# harness.io/skip-versioning: "true"
 apiVersion: v1
 kind: Secret
 metadata:
   name: {{.Values.name}}-dockercfg
-  annotations:
-    harness.io/skip-versioning: true
 data:
   .dockercfg: {{.Values.dockercfg}}
 type: kubernetes.io/dockercfg
