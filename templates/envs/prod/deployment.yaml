@@ -1,77 +1,77 @@
-{{- if .Values.env.config}}
+{{- if .Values.env.config }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{.Values.name}}
+  name: {{ .Values.name }}
 data:
-{{.Values.env.config | toYaml | indent 2}}
+{{ .Values.env.config | toYaml | indent 2 }}
 ---
-{{- end}}
+{{- end }}
 
-{{- if .Values.env.secrets}}
+{{- if .Values.env.secrets }}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{.Values.name}}
+  name: {{ .Values.name }}
 stringData:
-{{.Values.env.secrets | toYaml | indent 2}}
+{{ .Values.env.secrets | toYaml | indent 2 }}
 ---
-{{- end}}
+{{- end }}
 
-{{- if .Values.dockercfg}}
+{{- if .Values.dockercfg }}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{.Values.name}}-dockercfg
+  name: {{ .Values.name }}-dockercfg
   annotations:
-    harness.io/skip-versioning: true
+    harness.io/skip-versioning: "true" # Changed to string
 data:
-  .dockercfg: {{.Values.dockercfg}}
+  .dockercfg: {{ .Values.dockercfg }}
 type: kubernetes.io/dockercfg
 ---
-{{- end}}
+{{- end }}
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Values.name}}
+  name: {{ .Values.name }}
 spec:
-  replicas: {{int .Values.replicas}}
+  replicas: {{ int .Values.replicas }}
   selector:
     matchLabels:
-      app: {{.Values.name}}
+      app: {{ .Values.name }}
   template:
     metadata:
       labels:
-        app: {{.Values.name}}
+        app: {{ .Values.name }}
     spec:
-      {{- if .Values.dockercfg}}
+      {{- if .Values.dockercfg }}
       imagePullSecrets:
-      - name: {{.Values.name}}-dockercfg
-      {{- end}}
+      - name: {{ .Values.name }}-dockercfg
+      {{- end }}
       containers:
-      - name: {{.Values.name}}
-        image: {{.Values.image}}
-        imagePullPolicy: {{.Values.imagePolicy}}
+      - name: {{ .Values.name }}
+        image: {{ .Values.image }}
+        imagePullPolicy: {{ .Values.imagePolicy }}
         resources:
           limits:
-            memory: {{.Values.memLimit}}
-            cpu: {{.Values.cpuLimit}}
+            memory: {{ .Values.memLimit }}
+            cpu: {{ .Values.cpuLimit }}
           requests:
-            memory: {{.Values.memRequest}}
-            cpu: {{.Values.cpuRequest}}
+            memory: {{ .Values.memRequest }}
+            cpu: {{ .Values.cpuRequest }}
         ports:
         - name: http
           containerPort: 80
           protocol: TCP
-        {{- if or .Values.env.config .Values.env.secrets}}
+        {{- if or .Values.env.config .Values.env.secrets }}
         envFrom:
-        {{- if .Values.env.config}}
+        {{- if .Values.env.config }}
         - configMapRef:
-            name: {{.Values.name}}
-        {{- end}}
-        {{- if .Values.env.secrets}}
+            name: {{ .Values.name }}
+        {{- end }}
+        {{- if .Values.env.secrets }}
         - secretRef:
-            name: {{.Values.name}}
-        {{- end}}
-        {{- end}}
+            name: {{ .Values.name }}
+        {{- end }}
+        {{- end }}
