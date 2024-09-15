@@ -62,7 +62,11 @@ spec:
             cpu: {{ .Values.cpuRequest }}
         ports:
         - name: http
+          {{- if .Values.port }}
+          containerPort: {{ .Values.port }}
+          {{- else }}
           containerPort: 80
+          {{- end }}
           protocol: TCP
         {{- if or .Values.env.config .Values.env.secrets }}
         envFrom:
