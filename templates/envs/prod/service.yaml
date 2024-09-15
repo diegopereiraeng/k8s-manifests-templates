@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{.Values.name}}
+  name: {{ .Values.name }}
 spec:
-  type: {{.Values.serviceType}}
+  type: {{ .Values.serviceType }}
   ports:
   - name: http
-    port: {{.Values.servicePort}}
-    targetPort: {{.Values.serviceTargetPort}}
+    port: {{ .Values.servicePort }}
+    targetPort: {{ .Values.serviceTargetPort }}
     protocol: TCP
   selector:
-    app: {{.Values.name}}
+    app: {{ .Values.name }}
 ---
 {{- if eq .Values.serviceType "LoadBalancer" }}
 # LoadBalancer service type logic here (if applicable)
@@ -20,8 +20,8 @@ kind: Ingress
 metadata:
   name: {{ .Values.name }}-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false" # Corrected string value
+    nginx.ingress.kubernetes.io/use-regex: "true"     # Corrected string value
     {{- if .Values.rewriteDisabled }}
     nginx.ingress.kubernetes.io/rewrite-target: "/"
     {{- else }}
