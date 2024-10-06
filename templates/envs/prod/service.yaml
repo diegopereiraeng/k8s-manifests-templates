@@ -43,7 +43,7 @@ spec:
     http:
       paths:
       {{- range .Values.paths }}
-      - path: {{ .path }}(/|$)(.*)
+      - path: /{{ .path }}
         pathType: Prefix
         backend:
           service:
