@@ -1,1 +1,2 @@
 replicas: <+serviceVariables.replicas>
+namespace: <+infra.namespace>
