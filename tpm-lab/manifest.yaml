@@ -40,6 +40,6 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: {{ .Values.namespace | int }}
+  name: {{ .Values.namespace }}
   labels:
-    name: {{ .Values.namespace | int }}
+    name: {{ .Values.namespace }}
