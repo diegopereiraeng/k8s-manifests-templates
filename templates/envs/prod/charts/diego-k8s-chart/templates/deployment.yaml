@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      {{- if .Values.dockercfg }}
+      imagePullSecrets:
+        - name: {{ .Values.name }}-dockercfg
+      {{- end }}
+      containers:
+        - name: {{ .Values.name }}
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.imagePolicy }}
+          resources:
+            limits:
+              memory: {{ .Values.memLimit }}
+              cpu: {{ .Values.cpuLimit }}
+            requests:
+              memory: {{ .Values.memRequest }}
+              cpu: {{ .Values.cpuRequest }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.port | default 80 }}
+              protocol: TCP
+          {{- if or .Values.env.config .Values.env.secrets }}
+          envFrom:
+            {{- if .Values.env.config }}
+            - configMapRef:
+                name: {{ .Values.name }}
+            {{- end }}
+            {{- if .Values.env.secrets }}
+            - secretRef:
+                name: {{ .Values.name }}
+            {{- end }}
+          {{- end }}
