@@ -1,0 +1,29 @@
+name: my-app
+namespace: default
+createNamespace: false
+
+image: nginx:latest
+imagePolicy: IfNotPresent
+
+replicas: 2
+
+memLimit: "512Mi"
+cpuLimit: "500m"
+memRequest: "256Mi"
+cpuRequest: "250m"
+
+port: 8080
+
+serviceType: ClusterIP
+servicePort: 80
+serviceTargetPort: 8080
+
+env:
+  config: {}
+  secrets: {}
+
+dockercfg: ""
+
+defineHost: "example.com"
+paths:
+  - path: /
